@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--添加注解扫描  -->
+    <context:component-scan base-package="com.xuxinhui">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--1引入小配置文件 -->
+
+    <context:property-placeholder location="classpath:/JDBC.properties" />
+
+    <!--1.创建数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"></property>
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+
+    <!--2创建sqlSession -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--依赖数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+        <!--指定mapper文件位置 -->
+        <property name="mapperLocations" value="classpath:/com/xuxinhui/mappers/*Mappers.xml"></property>
+        <!--实体类起别名 别名为实体类名相同 -->
+        <property name="typeAliasesPackage" value="com.xuxinhui.entity"></property>
+    </bean>
+
+    <!--3配置创建dao实现类的对象 -->
+    <bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--引入sqlSessionFactory -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        <!--指定接口所在的包 -->
+        <property name="basePackage" value="com.xuxinhui.dao"></property>
+    </bean>
+
+
+
+    <!--编写事务相关操作 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--引入数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--开启事务扫描  -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--使用aspectJ替换springaop-->
+    <aop:aspectj-autoproxy proxy-target-class="true" ></aop:aspectj-autoproxy>
+</beans>

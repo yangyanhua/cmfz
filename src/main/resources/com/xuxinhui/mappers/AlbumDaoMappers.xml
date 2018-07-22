@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuxinhui.dao.AlbumDao">
+   
+
+    <sql id="list">
+    m1.id as m1id, m1.albumname as m1albumname,m1.author as m1author,m1.teller as m1teller,m1.pending as m1pending,
+    m1.albumurl as m1albumurl,m1.albuintro as m1albuintro,m1.addalbumtime as m1addalbumtime,
+    m1.issuealbutime as m1issuealbutime,m1.stars as m1stars,
+    m2.id as m2id, m2.musicname as m2musicname,m2.musicurl as m2musicurl,m2.musicsize as m2musicsize,
+    m2.aid as m2aid from
+    album m1 inner JOIN
+    music m2 on m1.id=m2.aid
+    </sql>
+    
+    <resultMap id="albumMap" type="album">
+        <id column="m1id" property="id"/>
+        <result column="m1albumname" property="albumname"/>
+        <result column="m1author" property="author"/>
+        <result column="m1teller" property="teller"/>
+        <result column="m1pending" property="pending"/>
+        <result column="m1albumurl" property="albumurl"/>
+        <result column="m1albuintro" property="albuintro"/>
+        <result column="m1addalbumtime" property="addalbumtime"/>
+        <result column="m1issuealbutime" property="issuealbutime"/>
+        <result column="m1stars" property="stars"/>
+        <collection property="music" ofType="com.xuxinhui.entity.Music">
+            <id column="m2id" property="id"/>
+            <result column="m2musicname" property="musicname"/>
+            <result column="m2musicurl" property="musicurl"/>
+            <result column="m2musicsize" property="musicsize"/>
+            <result column="m2aid" property="aid"/>
+        </collection>
+    </resultMap>
+    
+    
+
+
+
+    <select id="findlist" resultMap="albumMap">
+        select <include refid="list"/>
+    </select>
+
+
+    <!--分页-->
+    <select id="Paging" resultMap="albumMap">
+        select <include refid="list"/> limit #{page},#{rows}
+    </select>
+
+    <!--计算总条数  -->
+    <select id="totalCounts" resultType="java.lang.Integer">
+			select count(*) from album
+	</select>
+
+    <!--添加-->
+    <insert id="add">
+        insert into album values(#{id},#{albumname},#{author}#{teller},#{pending},#{albumurl},#{albuintro},sysdate(),#{issuealbutime},#{stars})
+    </insert>
+
+    <!--查一个-->
+    <select id="find" resultMap="albumMap">
+        select <include refid="list"/> where m1.id=#{id}
+    </select>
+
+    <select id="findwuge" resultType="album">
+        SELECT * FROM album ORDER BY addalbumtime DESC LIMIT 5
+    </select>
+</mapper>

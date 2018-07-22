@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans 
+	   http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+	   
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context-3.2.xsd
+	   
+	   http://www.springframework.org/schema/aop
+	   http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	   
+	   http://www.springframework.org/schema/tx
+	   http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+	   
+	   http://www.springframework.org/schema/mvc
+	   http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+	   ">
+	<!--1.添加注解扫描 -->
+	<context:component-scan base-package="com.xuxinhui.controller">
+
+
+	</context:component-scan>
+	<!--2.视图解析器 -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	<!--3.开启Springmvc的注解功能  -->
+	<mvc:annotation-driven>
+
+		<mvc:message-converters>
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!--文件上传解析器-->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!--指定文件上传大小-->
+		<property name="maxUploadSize" value="10211000000"></property>
+	</bean>
+
+
+	<!--配置拦截器  -->
+	 	 <mvc:interceptors>
+            <mvc:interceptor>
+              <!--  拦截范围-->
+                <mvc:mapping path="/**"/><!--过滤所有-->
+                <mvc:exclude-mapping path="/user/*"/><!--排除不过滤-->
+				<mvc:exclude-mapping path="/lunbotu/*"/><!--排除不过滤-->
+                <bean class="com.xuxinhui.Interceptors.Interceptors"></bean><!--过滤器实现类-->
+            </mvc:interceptor>
+        </mvc:interceptors>
+	
+	<!--指定异常处理实现类  -->
+<!--	<bean class="com.xuxinhui.exceptionresolver.GlobalExceptionResolver"></bean> -->
+</beans>

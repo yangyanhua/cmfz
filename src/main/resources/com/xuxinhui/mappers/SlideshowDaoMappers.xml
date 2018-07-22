@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuxinhui.dao.SlideshowDao">
+
+
+
+    <select id="servicelist" resultType="Slideshow">
+        select * from slideshow
+    </select>
+
+    <insert id="serviceadd">
+       insert  into slideshow values(#{id},#{describe},#{url},#{state},sysdate(),#{altertime})
+    </insert>
+    <!--删除-->
+    <delete id="servicedelete">
+      delete from slideshow where id=#{id}
+    </delete>
+
+    <!--查一个-->
+    <select id="servicefind" resultType="Slideshow">
+        select * from slideshow where id=#{id}
+    </select>
+
+    <!--修改-->
+    <update id="serviceupdate">
+        update slideshow
+        <trim prefix="set" suffixOverrides=",">
+            <if test="describe!=null">
+                describe=#{describe},
+            </if>
+            <if test="url!=null">
+                url=#{url},
+            </if>
+            <if test="state!=null">
+                state=#{state},
+            </if>
+            <if test="time!=null">
+                time =#{time},
+            </if>
+            <if test="altertime!=null">
+                altertime=#{altertime}
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <!--分页-->
+    <select id="Paging" resultType="Slideshow">
+        select * from Slideshow limit #{page},#{rows}
+    </select>
+
+    <!--计算总条数  -->
+    <select id="totalCounts" resultType="java.lang.Integer">
+			select count(*) from Slideshow
+	</select>
+</mapper>

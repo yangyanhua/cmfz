@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuxinhui.dao.EssayDao">
+    <sql id="list">
+     m1.id as m1id, m1.title as m1title,m1.issuetime as m1issuetime,m1.time as m1time,
+     m1.content as m1content,m1.upid as m1upid,
+    m2.id as m2id, m2.upname as m2upname,m2.url as m2url
+     from
+    essay m1 inner JOIN
+    guru  m2 on m1.upid=m2.id
+
+  </sql>
+    
+    <resultMap  type="essay" id="essayMap" >
+        <id column="m1id" property="id"/>
+        <result column="m1title" property="title" />
+        <result column="m1issuetime" property="issuetime" />
+        <result column="m1time" property="time" />
+        <result column="m1content" property="content" />
+        <association property="gurn" javaType="com.xuxinhui.entity.Guru">
+            <id column="m2id" property="id"/>
+            <result column="m2upname" property="upname" />
+            <result column="m2url" property="url" />
+         </association>
+
+    </resultMap>
+        <!--查所有-->
+        <select id="Essaylist" resultMap="essayMap">
+          select <include refid="list"/>
+        </select>
+
+    <!--删除-->
+    <delete id="servicedelete">
+        delete from essay where id=#{id}
+    </delete>
+
+    <!--添加-->
+    <insert id="serviceadd">
+        insert into essay values (#{id},#{title},sysdate(),sysdate(),#{content},#{gurn.id})
+    </insert>
+
+    <!--计算总条数  -->
+    <select id="totalCounts" resultType="java.lang.Integer">
+			select count(*) from essay
+	</select>
+
+    <select id="Paging" resultMap="essayMap">
+        select <include refid="list"/> limit #{page},#{rows}
+    </select>
+</mapper>
