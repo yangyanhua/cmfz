@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangyh.dao.JournalDao">
+
+        <!--分页-->
+        <select id="Paging" resultType="journal">
+          select  id,admin,time,parameter,action,result from journal limit #{page},#{rows}
+        </select>
+
+        <!--查所有条数-->
+        <select id="totalCounts" resultType="java.lang.Integer">
+            select count(id)  from journal
+        </select>
+
+        <!--添加-->
+        <insert id="add">
+            insert into journal values(#{id},#{admin},#{time},#{action},#{result},#{parameter})
+        </insert>
+
+        <!--删除-->
+    <delete id="delete">
+      delete from journal where id=#{id}
+    </delete>
+
+    <!--批量删除  -->
+    <delete id="Batchdeletion">
+        delete from journal where id in
+        <foreach collection="list" open="(" item="item" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    
+    <select id="findlist" resultType="journal">
+        select * from journal
+    </select>
+</mapper>

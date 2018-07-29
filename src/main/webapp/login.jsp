@@ -17,7 +17,7 @@
 
         $(function(){
             $('#fr').form({
-                url:'${pageContext.request.contextPath}/user/login.do',
+                url:'${pageContext.request.contextPath}/admin/login.do',
                 onSubmit:function(){
                     return is = $('#fr').form('validate');
                 },ajax:true,
@@ -37,7 +37,7 @@
 
         //刷新验证码
         function  yanzmya(obj){
-         obj.src='${pageContext.request.contextPath }/user/code.do?'+Math.random();
+         obj.src='${pageContext.request.contextPath }/admin/code.do?'+Math.random();
           }
 
 
@@ -70,14 +70,14 @@
             </td>
         </tr>
 
-        <tr>
+       <%-- <tr>
             <td>&nbsp;</td>
             <th>验证码:</th>
             <td>
                 <input type="text" id="enCode" name="code" class="text captcha"   maxlength="4" autocomplete="off"/>
-                <img class="captchaImage" src="${pageContext.request.contextPath }/user/code.do" title="点击更换验证码" onclick="yanzmya(this);"/>
+                <img class="captchaImage" src="${pageContext.request.contextPath }/admin/code.do" title="点击更换验证码" onclick="yanzmya(this);"/>
             </td>
-        </tr>
+        </tr>--%>
         <tr>
             <td>&nbsp;</td>
             <th>&nbsp;</th>
@@ -86,7 +86,7 @@
             </td>
         </tr>
         </tbody>
-    </form>
+
 
     </table>
     <div class="powered">COPYRIGHT © 2008-2099.</div>

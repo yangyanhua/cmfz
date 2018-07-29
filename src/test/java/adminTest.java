@@ -1,6 +1,6 @@
-import com.xuxinhui.dao.*;
-import com.xuxinhui.entity.*;
-import com.xuxinhui.service.*;
+import com.yangyh.dao.*;
+import com.yangyh.entity.*;
+import com.yangyh.service.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -189,8 +189,8 @@ public class adminTest {
     @Test
     public void fgdsfsd(){
         Music music = new Music();
-        music.setId("5");
-        music.setAid("2");
+     //   music.setId("5");
+       // music.setAid("2");
         musicDao.add(music);
     }
     @Test

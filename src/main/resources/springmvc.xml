@@ -60,7 +60,7 @@
                 <mvc:mapping path="/**"/><!--过滤所有-->
                 <mvc:exclude-mapping path="/user/*"/><!--排除不过滤-->
 				<mvc:exclude-mapping path="/lunbotu/*"/><!--排除不过滤-->
-                <bean class="com.xuxinhui.Interceptors.Interceptors"></bean><!--过滤器实现类-->
+                <bean class="com.yangyh.Interceptors.Interceptors"></bean><!--过滤器实现类-->
             </mvc:interceptor>
         </mvc:interceptors>
 	

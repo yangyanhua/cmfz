@@ -5,14 +5,15 @@
     <title>持名法州后台管理中心</title>
 
     <%--引入goeasy的JS文件--%>
-
+    <script src="http://cdn-hangzhou.goeasy.io/goeasy.js"></script>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/back/static/themes/icon.css">
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/back/static/themes/default/easyui.css">
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/back/static/themes/IconExtension.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/back/static/jquery.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/back/static/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/back/static/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath }/back/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath }/back/echarts/echarts.js"></script>
+
     <script type="text/javascript">
         /*创建菜单栏*/
         $(function(){
@@ -49,7 +50,14 @@
                     title:title,
                     iconCls:iconCls,
                     href:"${pageContext.request.contextPath}/"+url,
-                    closable:true
+                    closable:true,
+                    tools:[{
+                        iconCls:'icon-mini-refresh',
+                        handler:function(){
+                            var tab = $('#tt').tabs('getSelected');
+                            tab.panel('refresh',"${pageContext.request.contextPath}/"+url);
+                        }
+                    }],
                 })
             }else{
                 $("#tt").tabs('select',title);
@@ -80,7 +88,7 @@
     </div>
 </div>
 <div data-options="region:'south',split:true" style="height:40px;background-color:#5C160C ">
-    <div style="text-align: center;font-family: 楷体;color: white;font-size: 15px">&copy; Xinhx; Mymissingcontinues@163.com</div>
+    <div style="text-align: center;font-family: 楷体;color: white;font-size: 15px">&copy; yyh; yyh427@163.com</div>
 </div>
 <div data-options="region:'west',title:'导航菜单',split:true" style="width:200px;">
     <div id="m" class="easyui-accordion" data-options="fit:true"></div>

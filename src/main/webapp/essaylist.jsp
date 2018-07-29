@@ -14,7 +14,7 @@
 </head>
 <body>
 <table id="btu"></table>
-
+<div id="ylck"></div>
 
 <script type="text/javascript">
     $(function(){
@@ -25,7 +25,12 @@
                 {field:'id',title:'编号',width:200},
                 {field:'title',title:'标题',width:200},
                 {field:'issuetime',title:'发布时间',width:200},
-                {field:'content',title:'内容',width:200},
+                {field:'content',title:'内容',width:200,
+                    /*formatter:function (val,row,index) {
+
+                        return '<a href="javascript:(void(0))" class="yunantup" onclick="yunantup('+val+')"></a>';
+                    }*/
+                },
                 {field:'upid',title:'上师作者',width:200,
                     formatter:function(val,row,index){
                         return row.gurn.upname;
@@ -43,10 +48,22 @@
                     }
                 }
             ]],
+            onLoadSuccess:function(){
+                $('.yunantup').linkbutton({
+                    text:'预览',
+                    iconCls:'icon-2012092109942',
+                });
+            },
             url:'${pageContext.request.contextPath}/editor/findlist.do',
             pagination:true,
         });
     });
+
+    /*function yunantup(val){
+       $('#ylck').dialog({
+
+       })
+    }*/
 
 </script>
 
