@@ -1,7 +1,7 @@
 package com.yangyh.entity;
 
 import java.io.Serializable;
-
+//上师实体
 public class Guru implements Serializable {
     private String id;
     private String upname;

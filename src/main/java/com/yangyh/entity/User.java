@@ -6,7 +6,7 @@ import com.yangyh.annotation.Content;
 
 import java.io.Serializable;
 import java.util.Date;
-
+//APP用户实体
 public class User implements Serializable {
     @AnnName(name="编号")
     @Content(value="id")

@@ -68,7 +68,6 @@ public class SlideshowController {
     @ResponseBody
     public String upfile(MultipartFile url, HttpSession session) throws Exception{
         System.out.println("来了吗？？？");
-        System.out.println("这是图片"+url);
         String filename = url.getOriginalFilename();//文件名
         String contentType = url.getContentType();//文件类型
         System.out.println("这是文件名"+filename);

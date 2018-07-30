@@ -2,7 +2,7 @@ package com.yangyh.entity;
 
 import java.io.Serializable;
 import java.util.List;
-
+//菜单实体
 public class Menu implements Serializable {
 
     private String id;

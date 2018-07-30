@@ -5,8 +5,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import java.io.Serializable;
 import java.util.Date;
 
-//@Data// get set tostring equals
-//@NoArgsConstructor//无参构造
+ //文章实体
 /*@AllArgsConstructor//全参构造
 @Accessors(chain = true) //链式调用*/
 public class Essay  implements Serializable {

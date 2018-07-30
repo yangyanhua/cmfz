@@ -5,20 +5,20 @@ import com.yangyh.annotation.AnnName;
 
 import java.io.Serializable;
 import java.util.Date;
-
+//轮播图实体
 public class Slideshow implements Serializable {
     @AnnName(name="编号")
     private String id;
     @AnnName(name="名字")
     private String describe;
-    @AnnName(name="性别")
+    @AnnName(name="图片路径")
     private String url;
-    @AnnName(name="年龄")
+    @AnnName(name="状态")
     private String state;
-    @AnnName(name="生日")
+    @AnnName(name="上传时间")
     @JSONField(format = "yyyy-MM-dd ")
     private Date time;
-    @AnnName(name="入学时间")
+    @AnnName(name="修改日期")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date altertime;
 

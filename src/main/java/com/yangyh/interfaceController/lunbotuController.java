@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+//定义轮播图接口
 @RestController
 @RequestMapping("/lunbotu")
 public class lunbotuController {

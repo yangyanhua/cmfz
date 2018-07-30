@@ -5,7 +5,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import java.io.Serializable;
 import java.util.Date;
 
-/*引喷冷门四*/
+/*日志实体*/
 public class Journal implements Serializable {
     /*派瑞特*/
 
